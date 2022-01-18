@@ -1,0 +1,39 @@
+Name: pay.rpc
+ListenOn: 0.0.0.0:9003
+
+Etcd:
+  Hosts:
+  - 9.135.226.207:2379
+  Key: pay.rpc
+
+Mysql:
+  DataSource: root:root@tcp(9.135.226.207:3306)/mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+CacheRedis:
+- Host: 9.135.226.207:6379
+  Type: node
+  Pass:
+
+UserRpc:
+  Etcd:
+    Hosts:
+    - 9.135.226.207:2379
+    Key: user.rpc
+
+OrderRpc:
+  Etcd:
+    Hosts:
+    - 9.135.226.207:2379
+    Key: order.rpc
+
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9093
+  Path: /metrics
+
+Telemetry:
+  Name: pay.rpc
+  Endpoint: http://jaeger:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger

@@ -1,0 +1,14 @@
+个人账号：
+mobile:1236
+password:dwq
+name:dwq
+gender:1
+
+
+{
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDI1NTg0MDEsImlhdCI6MTY0MjQ3MjAwMSwidWlkIjoxfQ.pkfToVAw3qVIq92b6mzyTFZvBnYCNWnlhekhx7r1_fo",
+    "accessExpire": 1642558401
+}
+
+cookie：
+ -H 'authorization: 

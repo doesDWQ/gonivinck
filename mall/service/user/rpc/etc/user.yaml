@@ -1,0 +1,27 @@
+Name: user.rpc
+ListenOn: 0.0.0.0:9000
+Etcd:
+  Hosts:
+  - 9.135.226.207:2379
+  Key: user.rpc
+
+Mysql:
+  DataSource: root:root@tcp(9.135.226.207:3306)/mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+CacheRedis:
+  - Host: 9.135.226.207:6379
+    Type: node
+    Pass:
+
+Salt: HWVOFkGgPTryzICwd7qnJaZR9KQ2i8xe
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 7001
+  Path: /metrics
+
+Telemetry:
+  Name: user.rpc
+  Endpoint: http://jaeger:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
