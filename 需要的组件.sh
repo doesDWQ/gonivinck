@@ -13,6 +13,8 @@ docker run --name prometheus -d \
     prom/prometheus
 
 
+
+
 docker run -d --name jaeger \
   -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 \
   -p 5775:5775/udp \
@@ -27,3 +29,13 @@ docker run -d --name jaeger \
   jaegertracing/all-in-one:1.30
 
   docker run -d -p 3000:3000 --name grafana grafana/grafana-enterprise:8.2.0
+
+
+docker run -d --name dtm \
+-p 36789:36789 \
+-p 36790:36790  \
+-v ${PWD}/dtm/config:/app/dtm/configs \
+registry.cn-shenzhen.aliyuncs.com/dwq/dtm:v1.0
+
+集成的swagger文档
+https://github.com/zeromicro/goctl-swagger

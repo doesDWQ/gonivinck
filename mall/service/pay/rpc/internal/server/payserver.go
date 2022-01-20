@@ -35,3 +35,8 @@ func (s *PayServer) Callback(ctx context.Context, in *pay.CallbackRequest) (*pay
 	l := logic.NewCallbackLogic(ctx, s.svcCtx)
 	return l.Callback(in)
 }
+
+func (s *PayServer) CallbackRevert(ctx context.Context, in *pay.CallbackRequest) (*pay.CallbackResponse, error) {
+	l := logic.NewCallbackRevertLogic(ctx, s.svcCtx)
+	return l.CallbackRevert(in)
+}

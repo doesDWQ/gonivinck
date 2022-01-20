@@ -18,21 +18,21 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-type PaidLogic struct {
+type PaidRevertLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewPaidLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PaidLogic {
-	return &PaidLogic{
+func NewPaidRevertLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PaidRevertLogic {
+	return &PaidRevertLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *PaidLogic) Paid(in *order.PaidRequest) (*order.PaidResponse, error) {
+func (l *PaidRevertLogic) PaidRevert(in *order.PaidRequest) (*order.PaidResponse, error) {
 	// 获取 RawDB
 	db, err := sqlx.NewMysql(l.svcCtx.Config.Mysql.DataSource).RawDB()
 	if err != nil {
@@ -55,11 +55,11 @@ func (l *PaidLogic) Paid(in *order.PaidRequest) (*order.PaidResponse, error) {
 			return fmt.Errorf(err.Error())
 		}
 
-		res.Status = 1
-		// 更新订单状态
+		res.Status = 0
+		// 回滚更新订单状态
 		err = l.svcCtx.OrderModel.Update(res)
 		if err != nil {
-			return fmt.Errorf("更新订单状态失败")
+			return fmt.Errorf("回滚更新订单状态失败")
 		}
 
 		return nil

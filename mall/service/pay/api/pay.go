@@ -8,6 +8,7 @@ import (
 	"mall/service/pay/api/internal/handler"
 	"mall/service/pay/api/internal/svc"
 
+	_ "github.com/dtm-labs/driver-gozero" // 添加导入 `gozero` 的 `dtm` 驱动
 	"github.com/tal-tech/go-zero/core/conf"
 	"github.com/tal-tech/go-zero/rest"
 )

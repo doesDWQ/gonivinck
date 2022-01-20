@@ -8,9 +8,10 @@ import (
 	"github.com/dtm-labs/dtmcli"
 	"google.golang.org/grpc/codes"
 
-	"mall/service/order/model"
-	"mall/service/order/rpc/internal/svc"
-	"mall/service/order/rpc/order"
+	"mall/service/pay/model"
+	"mall/service/pay/rpc/internal/svc"
+	"mall/service/pay/rpc/pay"
+	"mall/service/user/rpc/user"
 
 	"github.com/dtm-labs/dtmgrpc"
 	"github.com/tal-tech/go-zero/core/logx"
@@ -18,21 +19,21 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-type PaidLogic struct {
+type CallbackRevertLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewPaidLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PaidLogic {
-	return &PaidLogic{
+func NewCallbackRevertLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CallbackRevertLogic {
+	return &CallbackRevertLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *PaidLogic) Paid(in *order.PaidRequest) (*order.PaidResponse, error) {
+func (l *CallbackRevertLogic) CallbackRevert(in *pay.CallbackRequest) (*pay.CallbackResponse, error) {
 	// 获取 RawDB
 	db, err := sqlx.NewMysql(l.svcCtx.Config.Mysql.DataSource).RawDB()
 	if err != nil {
@@ -46,20 +47,28 @@ func (l *PaidLogic) Paid(in *order.PaidRequest) (*order.PaidResponse, error) {
 	}
 
 	if err := barrier.CallWithDB(db, func(tx *sql.Tx) error {
-		// 查询订单是否存在
-		res, err := l.svcCtx.OrderModel.FindOne(in.Id)
+		// 查询用户是否存在
+		_, err := l.svcCtx.UserRpc.UserInfo(l.ctx, &user.UserInfoRequest{
+			Id: in.Uid,
+		})
+		if err != nil {
+			return fmt.Errorf(err.Error())
+		}
+
+		// 查询支付是否存在
+		res, err := l.svcCtx.PayModel.FindOne(in.Id)
 		if err != nil {
 			if err == model.ErrNotFound {
-				return fmt.Errorf("订单不存在")
+				return fmt.Errorf("支付流水不存在")
 			}
 			return fmt.Errorf(err.Error())
 		}
 
-		res.Status = 1
-		// 更新订单状态
-		err = l.svcCtx.OrderModel.Update(res)
+		res.Status = 0
+		// 回滚更新支付状态
+		err = l.svcCtx.PayModel.Update(res)
 		if err != nil {
-			return fmt.Errorf("更新订单状态失败")
+			return fmt.Errorf("回滚更新支付状态失败")
 		}
 
 		return nil
@@ -67,5 +76,5 @@ func (l *PaidLogic) Paid(in *order.PaidRequest) (*order.PaidResponse, error) {
 		return nil, status.Error(codes.Aborted, dtmcli.ResultFailure)
 	}
 
-	return &order.PaidResponse{}, nil
+	return &pay.CallbackResponse{}, nil
 }

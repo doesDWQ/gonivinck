@@ -47,4 +47,5 @@ service Pay {
     rpc Create(CreateRequest) returns(CreateResponse);
     rpc Detail(DetailRequest) returns(DetailResponse);
     rpc Callback(CallbackRequest) returns(CallbackResponse);
+    rpc CallbackRevert(CallbackRequest) returns(CallbackResponse);
 }

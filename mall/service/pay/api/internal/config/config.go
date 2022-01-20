@@ -12,5 +12,6 @@ type Config struct {
 		AccessExpire int64
 	}
 
-	PayRpc zrpc.RpcClientConf
+	PayRpc   zrpc.RpcClientConf
+	OrderRpc zrpc.RpcClientConf
 }

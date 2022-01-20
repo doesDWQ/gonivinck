@@ -50,3 +50,8 @@ func (s *OrderServer) Paid(ctx context.Context, in *order.PaidRequest) (*order.P
 	l := logic.NewPaidLogic(ctx, s.svcCtx)
 	return l.Paid(in)
 }
+
+func (s *OrderServer) PaidRevert(ctx context.Context, in *order.PaidRequest) (*order.PaidResponse, error) {
+	l := logic.NewPaidRevertLogic(ctx, s.svcCtx)
+	return l.PaidRevert(in)
+}

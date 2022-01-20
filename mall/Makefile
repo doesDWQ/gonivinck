@@ -1,12 +1,12 @@
-
-orderRpc:
-	cd service/order/rpc && go run order.go
-
 productRpc:
 	cd service/product/rpc && go run product.go
 
 userRpc:
 	cd service/user/rpc && go run user.go
+
+
+orderRpc:
+	cd service/order/rpc && go run order.go
 
 payRpc:
 	cd service/pay/rpc && go run pay.go
@@ -26,4 +26,4 @@ userApi:
 	cd service/user/api && go run user.go
 
 payApi:
-	cd service/pay/api && go run pay.go
+	cd service/pay/api && go run pay.go > ./run.log

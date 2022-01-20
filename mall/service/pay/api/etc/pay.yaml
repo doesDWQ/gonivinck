@@ -20,6 +20,12 @@ PayRpc:
     - 9.135.226.207:2379
     Key: pay.rpc
 
+OrderRpc:
+  Etcd:
+    Hosts:
+    - 9.135.226.207:2379
+    Key: order.rpc
+
 Prometheus:
   Host: 0.0.0.0
   Port: 9083

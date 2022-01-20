@@ -1,0 +1,10 @@
+cd service/product/rpc && go run product.go
+2022/01/19 14:31:17 {"@timestamp":"2022-01-19T14:31:17.586+08","level":"info","content":"0"}
+2022/01/19 14:31:17 {"@timestamp":"2022-01-19T14:31:17.587+08","level":"info","content":"1"}
+2022/01/19 14:31:17 {"@timestamp":"2022-01-19T14:31:17.587+08","level":"info","content":"2"}
+Starting rpc server at 0.0.0.0:9001...
+{"@timestamp":"2022-01-19T14:31:17.587+08","level":"info","content":"Starting prometheus agent at 0.0.0.0:9091"}
+{"@timestamp":"2022-01-19T14:32:17.582+08","level":"stat","content":"CPU: 2m, MEMORY: Alloc=6.8Mi, TotalAlloc=13.3Mi, Sys=20.3Mi, NumGC=4"}
+{"@timestamp":"2022-01-19T14:32:17.590+08","level":"stat","content":"(rpc) shedding_stat [1m], cpu: 2, total: 0, pass: 0, drop: 0"}
+/bin/sh: line 1: 24378 已杀死               go run product.go
+make: *** [productRpc] 错误 137

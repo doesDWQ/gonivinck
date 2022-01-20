@@ -24,6 +24,7 @@ type (
 		Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
 		Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error)
 		Callback(ctx context.Context, in *CallbackRequest, opts ...grpc.CallOption) (*CallbackResponse, error)
+		CallbackRevert(ctx context.Context, in *CallbackRequest, opts ...grpc.CallOption) (*CallbackResponse, error)
 	}
 
 	defaultPay struct {
@@ -50,4 +51,9 @@ func (m *defaultPay) Detail(ctx context.Context, in *DetailRequest, opts ...grpc
 func (m *defaultPay) Callback(ctx context.Context, in *CallbackRequest, opts ...grpc.CallOption) (*CallbackResponse, error) {
 	client := pay.NewPayClient(m.cli.Conn())
 	return client.Callback(ctx, in, opts...)
+}
+
+func (m *defaultPay) CallbackRevert(ctx context.Context, in *CallbackRequest, opts ...grpc.CallOption) (*CallbackResponse, error) {
+	client := pay.NewPayClient(m.cli.Conn())
+	return client.CallbackRevert(ctx, in, opts...)
 }
