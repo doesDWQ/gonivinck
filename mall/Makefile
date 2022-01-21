@@ -13,9 +13,6 @@ payRpc:
 
 
 
-
-
-
 orderApi:
 	cd service/order/api && go run order.go
 

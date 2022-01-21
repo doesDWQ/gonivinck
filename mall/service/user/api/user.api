@@ -57,5 +57,5 @@ service User {
 		summary: "获取用户信息"
 	)
 	@handler UserInfo
-	post /api/user/userinfo returns (UserInfoResponse)
+	post /api/user/info returns (UserInfoResponse)
 }

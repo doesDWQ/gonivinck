@@ -2,20 +2,20 @@ Name: product.rpc
 ListenOn: 0.0.0.0:9001
 Etcd:
   Hosts:
-  - 9.135.226.207:2379
+  - etcd:2379
   Key: product.rpc
 
 Mysql:
-  DataSource: root:root@tcp(9.135.226.207:3306)/mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:123456@tcp(etcd:3306)/mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 
 CacheRedis:
-- Host: 9.135.226.207:6379
+- Host: redis:6379
   Type: node
   Pass:
 
 Prometheus:
   Host: 0.0.0.0
-  Port: 9091
+  Port: 9088
   Path: /metrics
 
 Telemetry:

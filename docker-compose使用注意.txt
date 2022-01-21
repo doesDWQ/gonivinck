@@ -1,0 +1,22 @@
+启动所有使用
+docker-compose up -d
+
+中括号里面表示可选，不填就是操作所有，填了就操作指定的
+单个启动使用如：
+docker-compose up -d [serviceName]
+
+修改了dockerfile文件后，然后再up命令即可
+docker-compose build [serviceName]
+
+
+清除镜像等相关垃圾：
+清除镜像：docker image prune
+清除容器：docker container prune
+
+yaml文件中当前目录需要使用  ./
+
+eolinker的mysql用户名和密码都是root
+账号，密码，昵称都是 dwq166
+
+
+Ubuntu安装ping工具    apt-get install inetutils-ping
