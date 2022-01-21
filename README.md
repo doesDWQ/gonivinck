@@ -8,7 +8,7 @@ https://mp.weixin.qq.com/s/IeqOg0oiyLB_aKJqSoP3gw
 
 
 修改服务的注意：
-直接停修改对应的dockerfile  改变cmd为 tail -f /dev/null 即可
+直接修改对应的dockerfile  改变cmd为 tail -f /dev/null 即可
 
 ## 使用
 ### 1. 按需修改 .env 配置
