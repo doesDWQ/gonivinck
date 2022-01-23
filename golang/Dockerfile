@@ -37,3 +37,5 @@ ENV PATH $GOPATH/bin:$PATH
 
 # 设置工作目录
 WORKDIR /usr/src/code
+
+CMD ["./main", "-f", "etc/config.yaml"]

@@ -1,0 +1,41 @@
+version: '3.5'
+
+# 服务容器配置
+services:
+  order_api:                                # 自定义容器名称
+    image: ${GO_ZERO_IMAGE}
+    environment:                         # 设置环境变量
+      - TZ=${TZ}
+    volumes:                             # 设置挂载目录
+      - ./service/order/api:/usr/src/code  # 引用 .env 配置中 CODE_PATH_HOST 变量，将宿主机上代码存放的目录挂载到容器中 /usr/src/code 目录
+    ports:                               # 设置端口映射
+      - "8002:8002"
+      - "9082:9082"
+    stdin_open: true                     # 打开标准输入，可以接受外部输入
+    tty: true
+    networks:
+      - backend
+    restart: always                      # 指定容器退出后的重启策略为始终重启
+    depends_on:
+      - user_rpc
+      - product_rpc
+      - pay_rpc
+      - order_rpc
+  
+  order_rpc:                                # 自定义容器名称
+    image: ${GO_ZERO_IMAGE}
+    environment:                         # 设置环境变量
+      - TZ=${TZ}
+    volumes:                             # 设置挂载目录
+      - ./service/order/rpc:/usr/src/code  # 引用 .env 配置中 CODE_PATH_HOST 变量，将宿主机上代码存放的目录挂载到容器中 /usr/src/code 目录
+    ports:                               # 设置端口映射
+      - "9002:9002"
+      - "9092:9092"
+    stdin_open: true                     # 打开标准输入，可以接受外部输入
+    tty: true
+    networks:
+      - backend
+    restart: always                      # 指定容器退出后的重启策略为始终重启
+    depends_on:
+      - user_rpc
+      - product_rpc

@@ -12,6 +12,14 @@ docker run --name prometheus -d \
     -v ./prometheus:/etc/prometheus \
     prom/prometheus
 
+引入bazel加快编译速度
+更新依赖
+bazel run //:gazelle -- update-repos -from_file=go.mod 
+bazel run //:gazelle
+编译所有：
+
+
+
 
 
 
